@@ -10,11 +10,22 @@ export interface Asset {
   assetValue: string;
 }
 
+export interface TableHeaders {
+  asset: string;
+  shortCode: string;
+  date: string;
+  amountCZK: string;
+  amountEUR: string;
+  estimatedValue: string;
+  assetValue: string;
+}
+
 export interface Profile {
   id: string;
   name: string;
   photo?: string;
   assets: Asset[];
+  tableHeaders?: TableHeaders;
 }
 
 interface ProfileContextType {
@@ -25,6 +36,7 @@ interface ProfileContextType {
   updateAsset: (assetIndex: number, updatedAsset: Asset) => void;
   addAsset: (asset: Asset) => void;
   deleteAsset: (assetIndex: number) => void;
+  updateTableHeaders: (headers: TableHeaders) => void;
 }
 
 const defaultProfiles: Profile[] = [
@@ -149,6 +161,15 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     setProfiles(profiles.map(p => p.id === currentProfile.id ? updatedProfile : p));
   };
 
+  const updateTableHeaders = (headers: TableHeaders) => {
+    if (!currentProfile) return;
+    
+    const updatedProfile = { ...currentProfile, tableHeaders: headers };
+    setCurrentProfile(updatedProfile);
+    
+    setProfiles(profiles.map(p => p.id === currentProfile.id ? updatedProfile : p));
+  };
+
   return (
     <ProfileContext.Provider value={{ 
       profiles, 
@@ -157,7 +178,8 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
       addProfile,
       updateAsset,
       addAsset,
-      deleteAsset
+      deleteAsset,
+      updateTableHeaders
     }}>
       {children}
     </ProfileContext.Provider>

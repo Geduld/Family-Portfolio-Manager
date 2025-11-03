@@ -11,7 +11,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useProfile } from '@/contexts/ProfileContext';
+import { useProfile, type TableHeaders } from '@/contexts/ProfileContext';
 import type { Asset } from '@/contexts/ProfileContext';
 import { Plus, Trash2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -22,13 +22,29 @@ interface AssetsTableProps {
 
 const AssetsTable = ({ assets }: AssetsTableProps) => {
   const { t } = useLanguage();
-  const { updateAsset, addAsset, deleteAsset } = useProfile();
+  const { updateAsset, addAsset, deleteAsset, currentProfile, updateTableHeaders } = useProfile();
   const { toast } = useToast();
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+
+  const defaultHeaders: TableHeaders = {
+    asset: t('asset'),
+    shortCode: t('shortCode'),
+    date: t('date'),
+    amountCZK: t('amountCZK'),
+    amountEUR: t('amountEUR'),
+    estimatedValue: t('estimatedValue'),
+    assetValue: t('assetValue'),
+  };
+
+  const headers = currentProfile?.tableHeaders || defaultHeaders;
 
   const handleCellChange = (index: number, field: keyof Asset, value: string) => {
     const updatedAsset = { ...assets[index], [field]: value };
     updateAsset(index, updatedAsset);
+  };
+
+  const handleHeaderChange = (field: keyof TableHeaders, value: string) => {
+    const updatedHeaders = { ...headers, [field]: value };
+    updateTableHeaders(updatedHeaders);
   };
 
   const handleAddRow = () => {
@@ -58,8 +74,7 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
 
   return (
     <Card className="p-6 bg-card border-border overflow-hidden">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-light text-foreground">{t('assets')}</h3>
+      <div className="flex justify-end items-center mb-4">
         <Button 
           onClick={handleAddRow}
           variant="outline"
@@ -75,13 +90,55 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
         <Table>
           <TableHeader>
             <TableRow className="border-border hover:bg-transparent">
-              <TableHead className="text-muted-foreground font-medium">{t('asset')}</TableHead>
-              <TableHead className="text-muted-foreground font-medium">{t('shortCode')}</TableHead>
-              <TableHead className="text-muted-foreground font-medium">{t('date')}</TableHead>
-              <TableHead className="text-muted-foreground font-medium text-right">{t('amountCZK')}</TableHead>
-              <TableHead className="text-muted-foreground font-medium text-right">{t('amountEUR')}</TableHead>
-              <TableHead className="text-muted-foreground font-medium text-right">{t('estimatedValue')}</TableHead>
-              <TableHead className="text-muted-foreground font-medium text-right">{t('assetValue')}</TableHead>
+              <TableHead className="text-muted-foreground font-medium">
+                <Input
+                  value={headers.asset}
+                  onChange={(e) => handleHeaderChange('asset', e.target.value)}
+                  className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground focus-visible:ring-1"
+                />
+              </TableHead>
+              <TableHead className="text-muted-foreground font-medium">
+                <Input
+                  value={headers.shortCode}
+                  onChange={(e) => handleHeaderChange('shortCode', e.target.value)}
+                  className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground focus-visible:ring-1"
+                />
+              </TableHead>
+              <TableHead className="text-muted-foreground font-medium">
+                <Input
+                  value={headers.date}
+                  onChange={(e) => handleHeaderChange('date', e.target.value)}
+                  className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground focus-visible:ring-1"
+                />
+              </TableHead>
+              <TableHead className="text-muted-foreground font-medium text-right">
+                <Input
+                  value={headers.amountCZK}
+                  onChange={(e) => handleHeaderChange('amountCZK', e.target.value)}
+                  className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground text-right focus-visible:ring-1"
+                />
+              </TableHead>
+              <TableHead className="text-muted-foreground font-medium text-right">
+                <Input
+                  value={headers.amountEUR}
+                  onChange={(e) => handleHeaderChange('amountEUR', e.target.value)}
+                  className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground text-right focus-visible:ring-1"
+                />
+              </TableHead>
+              <TableHead className="text-muted-foreground font-medium text-right">
+                <Input
+                  value={headers.estimatedValue}
+                  onChange={(e) => handleHeaderChange('estimatedValue', e.target.value)}
+                  className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground text-right focus-visible:ring-1"
+                />
+              </TableHead>
+              <TableHead className="text-muted-foreground font-medium text-right">
+                <Input
+                  value={headers.assetValue}
+                  onChange={(e) => handleHeaderChange('assetValue', e.target.value)}
+                  className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground text-right focus-visible:ring-1"
+                />
+              </TableHead>
               <TableHead className="text-muted-foreground font-medium text-center w-[60px]">Actions</TableHead>
             </TableRow>
           </TableHeader>
