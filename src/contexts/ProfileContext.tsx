@@ -22,6 +22,9 @@ interface ProfileContextType {
   currentProfile: Profile | null;
   setCurrentProfile: (profile: Profile) => void;
   addProfile: (profile: Profile) => void;
+  updateAsset: (assetIndex: number, updatedAsset: Asset) => void;
+  addAsset: (asset: Asset) => void;
+  deleteAsset: (assetIndex: number) => void;
 }
 
 const defaultProfiles: Profile[] = [
@@ -112,8 +115,50 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     setProfiles([...profiles, profile]);
   };
 
+  const updateAsset = (assetIndex: number, updatedAsset: Asset) => {
+    if (!currentProfile) return;
+    
+    const updatedAssets = [...currentProfile.assets];
+    updatedAssets[assetIndex] = updatedAsset;
+    
+    const updatedProfile = { ...currentProfile, assets: updatedAssets };
+    setCurrentProfile(updatedProfile);
+    
+    setProfiles(profiles.map(p => p.id === currentProfile.id ? updatedProfile : p));
+  };
+
+  const addAsset = (asset: Asset) => {
+    if (!currentProfile) return;
+    
+    const updatedProfile = { 
+      ...currentProfile, 
+      assets: [...currentProfile.assets, asset] 
+    };
+    setCurrentProfile(updatedProfile);
+    
+    setProfiles(profiles.map(p => p.id === currentProfile.id ? updatedProfile : p));
+  };
+
+  const deleteAsset = (assetIndex: number) => {
+    if (!currentProfile) return;
+    
+    const updatedAssets = currentProfile.assets.filter((_, index) => index !== assetIndex);
+    const updatedProfile = { ...currentProfile, assets: updatedAssets };
+    setCurrentProfile(updatedProfile);
+    
+    setProfiles(profiles.map(p => p.id === currentProfile.id ? updatedProfile : p));
+  };
+
   return (
-    <ProfileContext.Provider value={{ profiles, currentProfile, setCurrentProfile, addProfile }}>
+    <ProfileContext.Provider value={{ 
+      profiles, 
+      currentProfile, 
+      setCurrentProfile, 
+      addProfile,
+      updateAsset,
+      addAsset,
+      deleteAsset
+    }}>
       {children}
     </ProfileContext.Provider>
   );
