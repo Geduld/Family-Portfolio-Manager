@@ -6,15 +6,18 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Globe, Users } from 'lucide-react';
+import { Globe, Users, Plus } from 'lucide-react';
+import AddProfileDialog from './AddProfileDialog';
 
 const DashboardHeader = () => {
   const { language, setLanguage, t } = useLanguage();
   const { profiles, currentProfile, setCurrentProfile } = useProfile();
   const [exchangeRate, setExchangeRate] = useState(24.34);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [showAddProfile, setShowAddProfile] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -59,6 +62,14 @@ const DashboardHeader = () => {
                     {profile.name}
                   </DropdownMenuItem>
                 ))}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => setShowAddProfile(true)}
+                  className="text-primary font-medium"
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Member
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -88,6 +99,7 @@ const DashboardHeader = () => {
           </div>
         </div>
       </div>
+      <AddProfileDialog open={showAddProfile} onOpenChange={setShowAddProfile} />
     </header>
   );
 };

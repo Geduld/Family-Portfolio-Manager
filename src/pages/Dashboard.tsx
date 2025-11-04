@@ -24,12 +24,18 @@ const Dashboard = () => {
       <DashboardHeader />
       
       <main className="container mx-auto px-4 sm:px-6 py-4 sm:py-8 space-y-4 sm:space-y-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
-          <WealthChart assets={currentProfile.assets} />
-          <ProfileSection profile={currentProfile} />
+        <div className="grid grid-cols-1 gap-4 sm:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="lg:col-span-3">
+              <WealthChart assets={currentProfile.assets} />
+            </div>
+            <div className="lg:col-span-1">
+              <ProfileSection profile={currentProfile} />
+            </div>
+          </div>
+          
+          <AssetsTable assets={currentProfile.assets} />
         </div>
-        
-        <AssetsTable assets={currentProfile.assets} />
       </main>
     </div>
   );

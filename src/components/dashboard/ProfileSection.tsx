@@ -11,18 +11,21 @@ const ProfileSection = ({ profile }: ProfileSectionProps) => {
   const { t } = useLanguage();
 
   return (
-    <Card className="p-4 sm:p-6 bg-card border-border flex flex-col items-center justify-center">
-      <div className="w-32 h-32 sm:w-48 sm:h-48 bg-muted rounded-lg flex items-center justify-center mb-4 sm:mb-6 border border-border">
+    <Card className="p-4 sm:p-6 bg-card border-border flex flex-col items-center justify-center h-full">
+      <div className="w-20 h-20 sm:w-24 sm:h-24 bg-muted rounded-full flex items-center justify-center mb-3 sm:mb-4 border border-border">
         {profile.photo ? (
-          <img src={profile.photo} alt={profile.name} className="w-full h-full object-cover rounded-lg" />
+          <img src={profile.photo} alt={profile.name} className="w-full h-full object-cover rounded-full" />
         ) : (
-          <User className="w-16 h-16 sm:w-24 sm:h-24 text-muted-foreground" />
+          <User className="w-10 h-10 sm:w-12 sm:h-12 text-muted-foreground" />
         )}
       </div>
       
-      <h2 className="text-xl sm:text-2xl font-light text-foreground italic text-center">
-        {t('welcome')}, {profile.name}.
+      <h2 className="text-base sm:text-lg font-light text-foreground text-center">
+        {t('welcome')},
       </h2>
+      <p className="text-lg sm:text-xl font-medium text-foreground text-center mt-1">
+        {profile.name}
+      </p>
     </Card>
   );
 };
