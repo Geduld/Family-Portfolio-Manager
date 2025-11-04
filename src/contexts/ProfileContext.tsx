@@ -31,6 +31,7 @@ interface ProfileContextType {
   currentProfile: Profile | null;
   setCurrentProfile: (profile: Profile) => void;
   addProfile: (profile: Profile) => void;
+  deleteProfile: (profileId: string) => void;
   updateAsset: (assetIndex: number, updatedAsset: Asset) => void;
   addAsset: (asset: Asset) => void;
   deleteAsset: (assetIndex: number) => void;
@@ -118,6 +119,15 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     setProfiles([...profiles, profile]);
   };
 
+  const deleteProfile = (profileId: string) => {
+    const updatedProfiles = profiles.filter(p => p.id !== profileId);
+    setProfiles(updatedProfiles);
+    
+    if (currentProfile?.id === profileId) {
+      setCurrentProfile(updatedProfiles[0] || null);
+    }
+  };
+
   const updateAsset = (assetIndex: number, updatedAsset: Asset) => {
     if (!currentProfile) return;
     
@@ -167,6 +177,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
       currentProfile, 
       setCurrentProfile, 
       addProfile,
+      deleteProfile,
       updateAsset,
       addAsset,
       deleteAsset,

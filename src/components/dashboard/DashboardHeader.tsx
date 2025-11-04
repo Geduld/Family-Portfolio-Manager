@@ -9,15 +9,36 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Globe, Users, Plus } from 'lucide-react';
+import { Globe, Users, Plus, Trash2 } from 'lucide-react';
 import AddProfileDialog from './AddProfileDialog';
 
 const DashboardHeader = () => {
   const { language, setLanguage, t } = useLanguage();
-  const { profiles, currentProfile, setCurrentProfile } = useProfile();
+  const { profiles, currentProfile, setCurrentProfile, deleteProfile } = useProfile();
   const [exchangeRate, setExchangeRate] = useState(24.34);
+  const [rateUpdateTime, setRateUpdateTime] = useState(new Date());
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showAddProfile, setShowAddProfile] = useState(false);
+
+  useEffect(() => {
+    const fetchExchangeRate = async () => {
+      try {
+        const response = await fetch('https://api.exchangerate-api.com/v4/latest/EUR');
+        const data = await response.json();
+        if (data.rates?.CZK) {
+          setExchangeRate(data.rates.CZK);
+          setRateUpdateTime(new Date());
+        }
+      } catch (error) {
+        console.error('Failed to fetch exchange rate:', error);
+      }
+    };
+
+    fetchExchangeRate();
+    const rateInterval = setInterval(fetchExchangeRate, 3600000); // Update every hour
+
+    return () => clearInterval(rateInterval);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -56,10 +77,26 @@ const DashboardHeader = () => {
                 {profiles.map((profile) => (
                   <DropdownMenuItem
                     key={profile.id}
-                    onClick={() => setCurrentProfile(profile)}
-                    className={currentProfile?.id === profile.id ? 'bg-accent' : ''}
+                    className={`justify-between ${currentProfile?.id === profile.id ? 'bg-accent' : ''}`}
+                    onSelect={(e) => e.preventDefault()}
                   >
-                    {profile.name}
+                    <span
+                      onClick={() => setCurrentProfile(profile)}
+                      className="flex-1 cursor-pointer"
+                    >
+                      {profile.name}
+                    </span>
+                    {profiles.length > 1 && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteProfile(profile.id);
+                        }}
+                        className="ml-2 p-1 hover:bg-destructive/10 rounded"
+                      >
+                        <Trash2 className="h-3 w-3 text-destructive" />
+                      </button>
+                    )}
                   </DropdownMenuItem>
                 ))}
                 <DropdownMenuSeparator />
@@ -93,7 +130,7 @@ const DashboardHeader = () => {
                 <span className="ml-2 sm:ml-3 text-foreground">1€ : {exchangeRate.toFixed(2)}CZK</span>
               </div>
               <div className="text-xs text-muted-foreground">
-                Stand: <span className="text-foreground">{formatDateTime(currentTime)}</span>
+                Stand: <span className="text-foreground">{formatDateTime(rateUpdateTime)}</span>
               </div>
             </div>
           </div>
