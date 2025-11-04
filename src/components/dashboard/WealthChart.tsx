@@ -49,50 +49,52 @@ const WealthChart = ({ assets }: WealthChartProps) => {
 
   return (
     <Card className="p-6 bg-card border-border">
-      <h2 className="text-xl font-light mb-6 text-foreground">{t('totalAssets')}</h2>
-      
-      <div className="relative">
-        <ResponsiveContainer width="100%" height={300}>
-          <PieChart>
-            <Pie
-              data={dataWithPercentages}
-              cx="50%"
-              cy="50%"
-              innerRadius={80}
-              outerRadius={120}
-              paddingAngle={2}
-              dataKey="value"
-            >
-              {dataWithPercentages.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
-        
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <div className="text-3xl font-light text-primary">
-              {formatNumber(totalWealth)}
+      <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+        {/* Left side - Legend */}
+        <div className="flex-1 flex flex-col justify-center space-y-4 w-full md:w-1/2">
+          {dataWithPercentages.map((item, index) => (
+            <div key={item.name} className="flex items-center justify-between text-base">
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-4 h-4 rounded-full"
+                  style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                />
+                <span className="text-foreground">{item.name}</span>
+              </div>
+              <span className="text-muted-foreground font-medium">{item.percentage}%</span>
             </div>
-            <div className="text-sm text-muted-foreground">CZK</div>
+          ))}
+        </div>
+
+        {/* Right side - Chart */}
+        <div className="relative flex-1 w-full md:w-1/2">
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={dataWithPercentages}
+                cx="50%"
+                cy="50%"
+                innerRadius={80}
+                outerRadius={120}
+                paddingAngle={2}
+                dataKey="value"
+              >
+                {dataWithPercentages.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+          
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="text-center">
+              <div className="text-3xl font-light text-primary">
+                {formatNumber(totalWealth)}
+              </div>
+              <div className="text-sm text-muted-foreground">CZK</div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div className="mt-6 space-y-3">
-        {dataWithPercentages.map((item, index) => (
-          <div key={item.name} className="flex items-center justify-between text-sm">
-            <div className="flex items-center gap-3">
-              <div
-                className="w-3 h-3 rounded-full"
-                style={{ backgroundColor: COLORS[index % COLORS.length] }}
-              />
-              <span className="text-foreground">{item.name}</span>
-            </div>
-            <span className="text-muted-foreground">{item.percentage}%</span>
-          </div>
-        ))}
       </div>
     </Card>
   );
