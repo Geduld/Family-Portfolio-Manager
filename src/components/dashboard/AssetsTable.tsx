@@ -14,7 +14,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useProfile, type TableHeaders } from '@/contexts/ProfileContext';
 import type { Asset } from '@/contexts/ProfileContext';
 import { Plus, Trash2 } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+
 
 interface AssetsTableProps {
   assets: Asset[];
@@ -23,15 +23,13 @@ interface AssetsTableProps {
 const AssetsTable = ({ assets }: AssetsTableProps) => {
   const { t } = useLanguage();
   const { updateAsset, addAsset, deleteAsset, currentProfile, updateTableHeaders } = useProfile();
-  const { toast } = useToast();
 
   const defaultHeaders: TableHeaders = {
     asset: t('asset'),
-    shortCode: t('shortCode'),
     date: t('date'),
     amountCZK: t('amountCZK'),
     amountEUR: t('amountEUR'),
-    estimatedValue: t('estimatedValue'),
+    notes: 'Notes',
     assetValue: t('assetValue'),
   };
 
@@ -50,26 +48,17 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
   const handleAddRow = () => {
     const newAsset: Asset = {
       name: 'New Asset',
-      shortCode: 'NEW',
       date: new Date().toLocaleDateString('cs-CZ'),
       amountCZK: '0 CZK',
       amountEUR: '0€',
-      estimatedValue: 'X',
+      notes: 'X',
       assetValue: '0 CZK',
     };
     addAsset(newAsset);
-    toast({
-      title: t('success'),
-      description: 'New asset row added',
-    });
   };
 
   const handleDeleteRow = (index: number) => {
     deleteAsset(index);
-    toast({
-      title: t('success'),
-      description: 'Asset deleted',
-    });
   };
 
   return (
@@ -90,49 +79,42 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
         <Table>
           <TableHeader>
             <TableRow className="border-border hover:bg-transparent">
-              <TableHead className="text-muted-foreground font-medium">
+              <TableHead className="text-muted-foreground font-medium w-[200px]">
                 <Input
                   value={headers.asset}
                   onChange={(e) => handleHeaderChange('asset', e.target.value)}
                   className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground focus-visible:ring-1"
                 />
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium">
-                <Input
-                  value={headers.shortCode}
-                  onChange={(e) => handleHeaderChange('shortCode', e.target.value)}
-                  className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground focus-visible:ring-1"
-                />
-              </TableHead>
-              <TableHead className="text-muted-foreground font-medium">
+              <TableHead className="text-muted-foreground font-medium w-[120px]">
                 <Input
                   value={headers.date}
                   onChange={(e) => handleHeaderChange('date', e.target.value)}
                   className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground focus-visible:ring-1"
                 />
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium text-right">
+              <TableHead className="text-muted-foreground font-medium text-right w-[140px]">
                 <Input
                   value={headers.amountCZK}
                   onChange={(e) => handleHeaderChange('amountCZK', e.target.value)}
                   className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground text-right focus-visible:ring-1"
                 />
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium text-right">
+              <TableHead className="text-muted-foreground font-medium text-right w-[140px]">
                 <Input
                   value={headers.amountEUR}
                   onChange={(e) => handleHeaderChange('amountEUR', e.target.value)}
                   className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground text-right focus-visible:ring-1"
                 />
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium text-right">
+              <TableHead className="text-muted-foreground font-medium">
                 <Input
-                  value={headers.estimatedValue}
-                  onChange={(e) => handleHeaderChange('estimatedValue', e.target.value)}
-                  className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground text-right focus-visible:ring-1"
+                  value={headers.notes}
+                  onChange={(e) => handleHeaderChange('notes', e.target.value)}
+                  className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground focus-visible:ring-1"
                 />
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium text-right">
+              <TableHead className="text-muted-foreground font-medium text-right w-[140px]">
                 <Input
                   value={headers.assetValue}
                   onChange={(e) => handleHeaderChange('assetValue', e.target.value)}
@@ -149,13 +131,6 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
                   <Input
                     value={asset.name}
                     onChange={(e) => handleCellChange(index, 'name', e.target.value)}
-                    className="border-0 bg-transparent px-2 py-1 h-8 focus-visible:ring-1"
-                  />
-                </TableCell>
-                <TableCell className="text-muted-foreground">
-                  <Input
-                    value={asset.shortCode}
-                    onChange={(e) => handleCellChange(index, 'shortCode', e.target.value)}
                     className="border-0 bg-transparent px-2 py-1 h-8 focus-visible:ring-1"
                   />
                 </TableCell>
@@ -180,11 +155,11 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
                     className="border-0 bg-transparent px-2 py-1 h-8 text-right focus-visible:ring-1"
                   />
                 </TableCell>
-                <TableCell className="text-right text-muted-foreground">
+                <TableCell className="text-muted-foreground">
                   <Input
-                    value={asset.estimatedValue}
-                    onChange={(e) => handleCellChange(index, 'estimatedValue', e.target.value)}
-                    className="border-0 bg-transparent px-2 py-1 h-8 text-right focus-visible:ring-1"
+                    value={asset.notes}
+                    onChange={(e) => handleCellChange(index, 'notes', e.target.value)}
+                    className="border-0 bg-transparent px-2 py-1 h-8 focus-visible:ring-1"
                   />
                 </TableCell>
                 <TableCell className="text-right font-medium text-foreground">
