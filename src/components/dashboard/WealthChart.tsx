@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
+import { useMemo, useState } from 'react';
+import { Cell, Pie, PieChart, ResponsiveContainer, Sector } from 'recharts';
 import { Card } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { Asset } from '@/contexts/ProfileContext';
@@ -8,10 +8,18 @@ interface WealthChartProps {
   assets: Asset[];
 }
 
-const COLORS = ['hsl(var(--wealth-gold))', 'hsl(var(--wealth-blue))', 'hsl(var(--wealth-green))', 'hsl(var(--wealth-brown))'];
+const COLORS = [
+  'hsl(210, 100%, 50%)',  // Bright blue
+  'hsl(190, 95%, 45%)',   // Teal
+  'hsl(170, 85%, 40%)',   // Cyan
+  'hsl(200, 90%, 55%)',   // Light blue
+  'hsl(220, 100%, 60%)',  // Deep blue
+  'hsl(180, 80%, 50%)',   // Aqua
+];
 
 const WealthChart = ({ assets }: WealthChartProps) => {
   const { t } = useLanguage();
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const chartData = useMemo(() => {
     const dataMap = new Map<string, number>();
@@ -47,40 +55,69 @@ const WealthChart = ({ assets }: WealthChartProps) => {
     return num.toLocaleString('de-DE');
   };
 
+  const renderActiveShape = (props: any) => {
+    const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill } = props;
+    
+    return (
+      <g>
+        <Sector
+          cx={cx}
+          cy={cy}
+          innerRadius={innerRadius}
+          outerRadius={outerRadius + 10}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          fill={fill}
+        />
+      </g>
+    );
+  };
+
   return (
     <Card className="p-6 bg-card border-border">
       <div className="flex flex-col md:flex-row items-center justify-between gap-8">
         {/* Left side - Legend */}
-        <div className="flex-1 flex flex-col justify-center space-y-4 w-full md:w-1/2">
+        <div className="flex flex-col justify-center space-y-4 w-full md:w-[30%]">
           {dataWithPercentages.map((item, index) => (
-            <div key={item.name} className="flex items-center justify-between text-base">
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-4 h-4 rounded-full"
-                  style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                />
-                <span className="text-foreground">{item.name}</span>
-              </div>
+            <div 
+              key={item.name} 
+              className="flex items-center gap-2 text-base cursor-pointer transition-opacity hover:opacity-80"
+              onMouseEnter={() => setActiveIndex(index)}
+              onMouseLeave={() => setActiveIndex(null)}
+            >
+              <div
+                className="w-4 h-4 rounded-full flex-shrink-0"
+                style={{ backgroundColor: COLORS[index % COLORS.length] }}
+              />
+              <span className="text-foreground flex-1">{item.name}</span>
               <span className="text-muted-foreground font-medium">{item.percentage}%</span>
             </div>
           ))}
         </div>
 
         {/* Right side - Chart */}
-        <div className="relative flex-1 w-full md:w-1/2">
-          <ResponsiveContainer width="100%" height={300}>
+        <div className="relative w-full md:w-[70%]">
+          <ResponsiveContainer width="100%" height={400}>
             <PieChart>
               <Pie
                 data={dataWithPercentages}
                 cx="50%"
                 cy="50%"
-                innerRadius={80}
-                outerRadius={120}
-                paddingAngle={2}
+                innerRadius={100}
+                outerRadius={160}
+                paddingAngle={5}
                 dataKey="value"
+                activeIndex={activeIndex !== null ? activeIndex : undefined}
+                activeShape={renderActiveShape}
+                onMouseEnter={(_, index) => setActiveIndex(index)}
+                onMouseLeave={() => setActiveIndex(null)}
               >
                 {dataWithPercentages.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell 
+                    key={`cell-${index}`} 
+                    fill={COLORS[index % COLORS.length]}
+                    className="transition-all duration-300"
+                  />
                 ))}
               </Pie>
             </PieChart>
@@ -88,7 +125,7 @@ const WealthChart = ({ assets }: WealthChartProps) => {
           
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="text-center">
-              <div className="text-3xl font-light text-primary">
+              <div className="text-4xl font-light text-primary">
                 {formatNumber(totalWealth)}
               </div>
               <div className="text-sm text-muted-foreground">CZK</div>
