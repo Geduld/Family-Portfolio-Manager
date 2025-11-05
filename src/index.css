@@ -8,81 +8,73 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Dark wealth management theme - luxurious old money aesthetic */
-    --background: 222 47% 11%;
+    /* M1 Finance inspired design system - Professional and sophisticated */
+    --background: 215 65% 8%;
     --foreground: 210 40% 98%;
 
-    --card: 217 33% 17%;
+    --card: 215 50% 12%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222 47% 11%;
+    --popover: 215 50% 12%;
     --popover-foreground: 210 40% 98%;
 
-    /* Gold accent for luxury touch */
-    --primary: 45 86% 54%;
-    --primary-foreground: 222 47% 11%;
+    /* Teal/Cyan accent inspired by M1 */
+    --primary: 185 90% 60%;
+    --primary-foreground: 215 65% 8%;
 
-    --secondary: 217 33% 22%;
+    --secondary: 215 45% 18%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 215 40% 15%;
+    --muted-foreground: 215 15% 65%;
 
-    --accent: 45 86% 54%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 185 90% 60%;
+    --accent-foreground: 215 65% 8%;
 
-    --destructive: 0 63% 31%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 33% 25%;
-    --input: 217 33% 20%;
-    --ring: 45 86% 54%;
+    --border: 215 35% 20%;
+    --input: 215 45% 15%;
+    --ring: 185 90% 60%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
     
-    /* Custom wealth management tokens */
-    --wealth-navy: 222 47% 11%;
-    --wealth-slate: 217 33% 17%;
-    --wealth-gold: 45 86% 54%;
-    --wealth-gold-muted: 45 60% 45%;
-    --wealth-green: 142 76% 36%;
-    --wealth-blue: 217 91% 60%;
-    --wealth-brown: 25 45% 35%;
-    --wealth-success: 142 76% 36%;
+    /* M1-inspired wealth management tokens */
+    --wealth-navy: 215 65% 8%;
+    --wealth-dark-blue: 215 50% 12%;
+    --wealth-teal: 185 90% 60%;
+    --wealth-cyan: 190 85% 55%;
+    --wealth-light-blue: 200 80% 50%;
+    --wealth-deep-blue: 220 85% 45%;
+    --wealth-success: 142 70% 45%;
     --wealth-warning: 38 92% 50%;
     
     /* Transitions */
-    --transition-elegant: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 185 90% 60%;
   }
 
   .dark {
-    /* Same as root - we're going dark by default */
-    --background: 222 47% 11%;
+    /* Same as root - M1 design is inherently dark */
+    --background: 215 65% 8%;
     --foreground: 210 40% 98%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 215 60% 10%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 185 90% 60%;
+    --sidebar-primary-foreground: 215 65% 8%;
+    --sidebar-accent: 215 45% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 215 35% 20%;
+    --sidebar-ring: 185 90% 60%;
   }
 }
 

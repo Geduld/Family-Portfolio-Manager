@@ -9,12 +9,12 @@ interface WealthChartProps {
 }
 
 const COLORS = [
+  'hsl(185, 90%, 60%)',   // Teal (primary)
+  'hsl(200, 80%, 50%)',   // Light blue
+  'hsl(190, 85%, 55%)',   // Cyan
+  'hsl(220, 85%, 45%)',   // Deep blue
   'hsl(210, 100%, 50%)',  // Bright blue
-  'hsl(190, 95%, 45%)',   // Teal
-  'hsl(170, 85%, 40%)',   // Cyan
-  'hsl(200, 90%, 55%)',   // Light blue
-  'hsl(220, 100%, 60%)',  // Deep blue
-  'hsl(180, 80%, 50%)',   // Aqua
+  'hsl(170, 85%, 40%)',   // Aqua
 ];
 
 const WealthChart = ({ assets }: WealthChartProps) => {
@@ -74,23 +74,26 @@ const WealthChart = ({ assets }: WealthChartProps) => {
   };
 
   return (
-    <Card className="p-6 bg-card border-border">
+    <Card className="p-6 bg-card/50 border-border/50 backdrop-blur-sm">
       <div className="flex flex-col md:flex-row items-center justify-between gap-8">
         {/* Left side - Legend */}
         <div className="flex flex-col justify-center space-y-4 w-full md:w-[30%]">
           {dataWithPercentages.map((item, index) => (
             <div 
               key={item.name} 
-              className="flex items-center gap-2 text-base cursor-pointer transition-opacity hover:opacity-80"
+              className="flex items-center gap-2 text-base cursor-pointer transition-all duration-300 hover:opacity-80"
               onMouseEnter={() => setActiveIndex(index)}
               onMouseLeave={() => setActiveIndex(null)}
             >
               <div
-                className="w-4 h-4 rounded-full flex-shrink-0"
-                style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                className="w-4 h-4 rounded-full flex-shrink-0 transition-transform duration-300"
+                style={{ 
+                  backgroundColor: COLORS[index % COLORS.length],
+                  transform: activeIndex === index ? 'scale(1.2)' : 'scale(1)'
+                }}
               />
               <span className="text-foreground flex-1">{item.name}</span>
-              <span className="text-muted-foreground font-medium">{item.percentage}%</span>
+              <span className="text-primary font-medium">{item.percentage}%</span>
             </div>
           ))}
         </div>
@@ -116,7 +119,7 @@ const WealthChart = ({ assets }: WealthChartProps) => {
                   <Cell 
                     key={`cell-${index}`} 
                     fill={COLORS[index % COLORS.length]}
-                    className="transition-all duration-300"
+                    className="transition-all duration-300 cursor-pointer"
                   />
                 ))}
               </Pie>
@@ -124,7 +127,7 @@ const WealthChart = ({ assets }: WealthChartProps) => {
           </ResponsiveContainer>
           
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="text-center">
+            <div className="text-center bg-background/80 backdrop-blur-sm rounded-full px-8 py-6">
               <div className="text-4xl font-light text-primary">
                 {formatNumber(totalWealth)}
               </div>
