@@ -15,6 +15,15 @@ const COLORS = [
   'hsl(220, 85%, 45%)',   // Deep blue
   'hsl(210, 100%, 50%)',  // Bright blue
   'hsl(170, 85%, 40%)',   // Aqua
+  'hsl(195, 90%, 55%)',   // Sky blue
+  'hsl(180, 80%, 45%)',   // Turquoise
+  'hsl(205, 85%, 52%)',   // Ocean blue
+  'hsl(175, 90%, 50%)',   // Aquamarine
+  'hsl(215, 80%, 48%)',   // Royal blue
+  'hsl(165, 85%, 45%)',   // Teal green
+  'hsl(225, 75%, 50%)',   // Cobalt
+  'hsl(188, 88%, 58%)',   // Caribbean blue
+  'hsl(198, 82%, 48%)',   // Cerulean
 ];
 
 const WealthChart = ({ assets }: WealthChartProps) => {
