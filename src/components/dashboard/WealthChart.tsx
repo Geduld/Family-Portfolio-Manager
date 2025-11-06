@@ -90,7 +90,7 @@ const WealthChart = ({ assets }: WealthChartProps) => {
           {dataWithPercentages.map((item, index) => (
             <div 
               key={item.name} 
-              className="flex items-center gap-2 text-base cursor-pointer transition-all duration-300 hover:opacity-80"
+              className="flex items-center gap-1 text-base cursor-pointer transition-all duration-300 hover:opacity-80"
               onMouseEnter={() => setActiveIndex(index)}
               onMouseLeave={() => setActiveIndex(null)}
             >
@@ -115,8 +115,8 @@ const WealthChart = ({ assets }: WealthChartProps) => {
                 data={dataWithPercentages}
                 cx="50%"
                 cy="50%"
-                innerRadius={100}
-                outerRadius={160}
+                innerRadius={120}
+                outerRadius={180}
                 paddingAngle={5}
                 dataKey="value"
                 activeIndex={activeIndex !== null ? activeIndex : undefined}
@@ -134,15 +134,6 @@ const WealthChart = ({ assets }: WealthChartProps) => {
               </Pie>
             </PieChart>
           </ResponsiveContainer>
-          
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="text-center bg-background/80 backdrop-blur-sm rounded-full px-8 py-6">
-              <div className="text-4xl font-light text-primary">
-                {formatNumber(totalWealth)}
-              </div>
-              <div className="text-sm text-muted-foreground">CZK</div>
-            </div>
-          </div>
         </div>
       </div>
     </Card>
