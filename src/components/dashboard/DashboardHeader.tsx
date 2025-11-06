@@ -94,7 +94,7 @@ const DashboardHeader = () => {
                         }}
                         className="ml-2 p-1 hover:bg-destructive/10 rounded transition-colors"
                       >
-                        <Trash2 className="h-3 w-3 text-destructive" />
+                        <Trash2 className="h-3 w-3 text-white" />
                       </button>
                     )}
                   </DropdownMenuItem>
