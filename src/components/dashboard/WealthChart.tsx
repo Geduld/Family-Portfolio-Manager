@@ -134,6 +134,15 @@ const WealthChart = ({ assets }: WealthChartProps) => {
               </Pie>
             </PieChart>
           </ResponsiveContainer>
+          
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="text-center">
+              <div className="text-4xl font-light text-primary">
+                {formatNumber(totalWealth)}
+              </div>
+              <div className="text-sm text-muted-foreground">CZK</div>
+            </div>
+          </div>
         </div>
       </div>
     </Card>
