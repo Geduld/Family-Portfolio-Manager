@@ -70,7 +70,7 @@ const WealthChart = ({ assets }: WealthChartProps) => {
           cx={cx}
           cy={cy}
           innerRadius={innerRadius}
-          outerRadius={outerRadius + 24}
+          outerRadius={outerRadius + 20}
           startAngle={startAngle}
           endAngle={endAngle}
           fill={fill}
