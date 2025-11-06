@@ -9,21 +9,18 @@ interface WealthChartProps {
 }
 
 const COLORS = [
-  'hsl(185, 90%, 60%)',   // Teal (primary)
-  'hsl(200, 80%, 50%)',   // Light blue
-  'hsl(190, 85%, 55%)',   // Cyan
-  'hsl(220, 85%, 45%)',   // Deep blue
-  'hsl(210, 100%, 50%)',  // Bright blue
-  'hsl(170, 85%, 40%)',   // Aqua
-  'hsl(195, 90%, 55%)',   // Sky blue
-  'hsl(180, 80%, 45%)',   // Turquoise
-  'hsl(205, 85%, 52%)',   // Ocean blue
-  'hsl(175, 90%, 50%)',   // Aquamarine
-  'hsl(215, 80%, 48%)',   // Royal blue
-  'hsl(165, 85%, 45%)',   // Teal green
-  'hsl(225, 75%, 50%)',   // Cobalt
-  'hsl(188, 88%, 58%)',   // Caribbean blue
-  'hsl(198, 82%, 48%)',   // Cerulean
+  'hsl(185, 90%, 60%)',   // Bright teal
+  'hsl(220, 75%, 50%)',   // Deep blue
+  'hsl(175, 85%, 45%)',   // Turquoise
+  'hsl(200, 70%, 55%)',   // Sky blue
+  'hsl(165, 80%, 40%)',   // Dark teal
+  'hsl(210, 85%, 48%)',   // Ocean blue
+  'hsl(190, 95%, 65%)',   // Light cyan
+  'hsl(215, 70%, 42%)',   // Navy blue
+  'hsl(180, 75%, 52%)',   // Aqua
+  'hsl(205, 80%, 58%)',   // Bright blue
+  'hsl(170, 70%, 38%)',   // Deep aqua
+  'hsl(195, 85%, 50%)',   // Caribbean blue
 ];
 
 const WealthChart = ({ assets }: WealthChartProps) => {
