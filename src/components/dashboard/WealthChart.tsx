@@ -9,21 +9,21 @@ interface WealthChartProps {
 }
 
 const COLORS = [
-  '#79a7b8',  // muted teal
-  '#355486',  // deep navy blue
-  '#a9bed5',  // soft blue-gray
-  '#edf1f6',  // light gray-blue
-  '#2c81a2',  // medium blue
-  '#79a7b8',  // muted teal (repeat)
-  '#355486',  // deep navy blue (repeat)
-  '#a9bed5',  // soft blue-gray (repeat)
-  '#edf1f6',  // light gray-blue (repeat)
-  '#2c81a2',  // medium blue (repeat)
-  '#79a7b8',  // muted teal (repeat)
-  '#355486',  // deep navy blue (repeat)
-  '#a9bed5',  // soft blue-gray (repeat)
-  '#edf1f6',  // light gray-blue (repeat)
-  '#2c81a2',  // medium blue (repeat)
+  'hsl(185, 90%, 60%)',   // Teal (primary)
+  'hsl(200, 80%, 50%)',   // Light blue
+  'hsl(190, 85%, 55%)',   // Cyan
+  'hsl(220, 85%, 45%)',   // Deep blue
+  'hsl(210, 100%, 50%)',  // Bright blue
+  'hsl(170, 85%, 40%)',   // Aqua
+  'hsl(195, 90%, 55%)',   // Sky blue
+  'hsl(180, 80%, 45%)',   // Turquoise
+  'hsl(205, 85%, 52%)',   // Ocean blue
+  'hsl(175, 90%, 50%)',   // Aquamarine
+  'hsl(215, 80%, 48%)',   // Royal blue
+  'hsl(165, 85%, 45%)',   // Teal green
+  'hsl(225, 75%, 50%)',   // Cobalt
+  'hsl(188, 88%, 58%)',   // Caribbean blue
+  'hsl(198, 82%, 48%)',   // Cerulean
 ];
 
 const WealthChart = ({ assets }: WealthChartProps) => {
