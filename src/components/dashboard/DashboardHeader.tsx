@@ -118,9 +118,9 @@ const DashboardHeader = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="bg-card border-border/50">
-                <DropdownMenuItem onClick={() => setLanguage('de')} className="hover:bg-primary/10">Deutsch</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLanguage('en')} className="hover:bg-primary/10">English</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLanguage('cz')} className="hover:bg-primary/10">Čeština</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage('de')} className="hover:bg-primary/10">🇩🇪 Deutsch</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage('en')} className="hover:bg-primary/10">🇬🇧 English</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage('cz')} className="hover:bg-primary/10">🇨🇿 Čeština</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 

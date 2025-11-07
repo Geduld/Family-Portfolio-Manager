@@ -86,13 +86,6 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
                   className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground focus-visible:ring-1 focus-visible:ring-primary"
                 />
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium w-[120px]">
-                <Input
-                  value={headers.date}
-                  onChange={(e) => handleHeaderChange('date', e.target.value)}
-                  className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground focus-visible:ring-1 focus-visible:ring-primary"
-                />
-              </TableHead>
               <TableHead className="text-muted-foreground font-medium text-right w-[140px]">
                 <Input
                   value={headers.amountCZK}
@@ -107,11 +100,11 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
                   className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground text-right focus-visible:ring-1 focus-visible:ring-primary"
                 />
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium">
+              <TableHead className="text-muted-foreground font-medium text-center">
                 <Input
                   value={headers.notes}
                   onChange={(e) => handleHeaderChange('notes', e.target.value)}
-                  className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground focus-visible:ring-1 focus-visible:ring-primary"
+                  className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground text-center focus-visible:ring-1 focus-visible:ring-primary"
                 />
               </TableHead>
               <TableHead className="text-muted-foreground font-medium text-right w-[140px]">
@@ -134,13 +127,6 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
                     className="border-0 bg-transparent px-2 py-1 h-8 focus-visible:ring-1 focus-visible:ring-primary"
                   />
                 </TableCell>
-                <TableCell className="text-muted-foreground">
-                  <Input
-                    value={asset.date}
-                    onChange={(e) => handleCellChange(index, 'date', e.target.value)}
-                    className="border-0 bg-transparent px-2 py-1 h-8 focus-visible:ring-1 focus-visible:ring-primary"
-                  />
-                </TableCell>
                 <TableCell className="text-right text-foreground">
                   <Input
                     value={asset.amountCZK}
@@ -155,11 +141,11 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
                     className="border-0 bg-transparent px-2 py-1 h-8 text-right focus-visible:ring-1 focus-visible:ring-primary text-primary"
                   />
                 </TableCell>
-                <TableCell className="text-muted-foreground">
+                <TableCell className="text-center text-muted-foreground">
                   <Input
                     value={asset.notes}
                     onChange={(e) => handleCellChange(index, 'notes', e.target.value)}
-                    className="border-0 bg-transparent px-2 py-1 h-8 focus-visible:ring-1 focus-visible:ring-primary"
+                    className="border-0 bg-transparent px-2 py-1 h-8 text-center focus-visible:ring-1 focus-visible:ring-primary"
                   />
                 </TableCell>
                 <TableCell className="text-right font-medium text-foreground">
