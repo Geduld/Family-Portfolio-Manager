@@ -1,8 +1,15 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Cell, Pie, PieChart, ResponsiveContainer, Sector } from 'recharts';
 import { Card } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { Asset } from '@/contexts/ProfileContext';
+import { ChevronDown } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 interface WealthChartProps {
   assets: Asset[];
@@ -26,6 +33,24 @@ const COLORS = [
 const WealthChart = ({ assets }: WealthChartProps) => {
   const { t } = useLanguage();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [currency, setCurrency] = useState<'CZK' | 'EUR'>('CZK');
+  const [exchangeRate, setExchangeRate] = useState(24.34);
+
+  useEffect(() => {
+    const fetchExchangeRate = async () => {
+      try {
+        const response = await fetch('https://api.exchangerate-api.com/v4/latest/EUR');
+        const data = await response.json();
+        if (data.rates?.CZK) {
+          setExchangeRate(data.rates.CZK);
+        }
+      } catch (error) {
+        console.error('Failed to fetch exchange rate:', error);
+      }
+    };
+
+    fetchExchangeRate();
+  }, []);
 
   const chartData = useMemo(() => {
     const dataMap = new Map<string, number>();
@@ -60,6 +85,13 @@ const WealthChart = ({ assets }: WealthChartProps) => {
   const formatNumber = (num: number) => {
     return num.toLocaleString('de-DE');
   };
+
+  const displayValue = useMemo(() => {
+    if (currency === 'EUR') {
+      return Math.round(totalWealth / exchangeRate);
+    }
+    return totalWealth;
+  }, [currency, totalWealth, exchangeRate]);
 
   const renderActiveShape = (props: any) => {
     const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill } = props;
@@ -132,12 +164,31 @@ const WealthChart = ({ assets }: WealthChartProps) => {
             </PieChart>
           </ResponsiveContainer>
           
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-auto">
             <div className="text-center">
               <div className="text-4xl font-light text-primary">
-                {formatNumber(totalWealth)}
+                {formatNumber(displayValue)}
               </div>
-              <div className="text-sm text-muted-foreground">CZK</div>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer">
+                  {currency}
+                  <ChevronDown className="h-3 w-3" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="center" className="bg-card border-border/50">
+                  <DropdownMenuItem 
+                    onClick={() => setCurrency('CZK')} 
+                    className={currency === 'CZK' ? 'bg-primary/10 text-primary' : ''}
+                  >
+                    CZK
+                  </DropdownMenuItem>
+                  <DropdownMenuItem 
+                    onClick={() => setCurrency('EUR')} 
+                    className={currency === 'EUR' ? 'bg-primary/10 text-primary' : ''}
+                  >
+                    EUR
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </div>

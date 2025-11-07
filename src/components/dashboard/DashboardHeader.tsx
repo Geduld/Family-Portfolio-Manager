@@ -130,7 +130,7 @@ const DashboardHeader = () => {
                 <span className="ml-2 sm:ml-3 text-primary">1€ : {exchangeRate.toFixed(2)}CZK</span>
               </div>
               <div className="text-xs text-muted-foreground">
-                {t('asOf')}: <span className="text-foreground">{formatDateTime(rateUpdateTime)}</span>
+                <span className="text-foreground">{formatDateTime(rateUpdateTime)}</span>
               </div>
             </div>
           </div>
