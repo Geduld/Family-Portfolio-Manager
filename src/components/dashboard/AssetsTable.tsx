@@ -29,7 +29,7 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
     date: t('date'),
     amountCZK: t('amountCZK'),
     amountEUR: t('amountEUR'),
-    notes: 'Notes',
+    notes: t('notes'),
     assetValue: t('assetValue'),
   };
 
@@ -71,7 +71,7 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
           className="gap-2 border-primary/30 hover:bg-primary/10 hover:text-primary hover:border-primary transition-all"
         >
           <Plus className="w-4 h-4" />
-          Add Row
+          {t('addRow')}
         </Button>
       </div>
       
@@ -114,7 +114,7 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
                   className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground text-right focus-visible:ring-1 focus-visible:ring-primary"
                 />
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium text-center w-[60px]">Actions</TableHead>
+              <TableHead className="text-muted-foreground font-medium text-center w-[60px]">{t('actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

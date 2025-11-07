@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useProfile } from '@/contexts/ProfileContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface AddProfileDialogProps {
   open: boolean;
@@ -13,6 +14,7 @@ interface AddProfileDialogProps {
 const AddProfileDialog = ({ open, onOpenChange }: AddProfileDialogProps) => {
   const [name, setName] = useState('');
   const { addProfile } = useProfile();
+  const { t } = useLanguage();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,24 +33,24 @@ const AddProfileDialog = ({ open, onOpenChange }: AddProfileDialogProps) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add New Member</DialogTitle>
+          <DialogTitle>{t('addNewMember')}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name">{t('name')}</Label>
             <Input
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Enter member name"
+              placeholder={t('enterMemberName')}
               required
             />
           </div>
           <div className="flex justify-end gap-2">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {t('cancel')}
             </Button>
-            <Button type="submit">Add Member</Button>
+            <Button type="submit">{t('addMember')}</Button>
           </div>
         </form>
       </DialogContent>

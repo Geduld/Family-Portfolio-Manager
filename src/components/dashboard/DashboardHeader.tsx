@@ -105,7 +105,7 @@ const DashboardHeader = () => {
                   className="text-primary font-medium hover:bg-primary/10"
                 >
                   <Plus className="h-4 w-4 mr-2" />
-                  Add Member
+                  {t('addMember')}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -118,9 +118,9 @@ const DashboardHeader = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="bg-card border-border/50">
-                <DropdownMenuItem onClick={() => setLanguage('de')} className="hover:bg-primary/10">🇩🇪 Deutsch</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLanguage('en')} className="hover:bg-primary/10">🇬🇧 English</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLanguage('cz')} className="hover:bg-primary/10">🇨🇿 Čeština</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage('de')} className="hover:bg-primary/10">Deutsch</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage('en')} className="hover:bg-primary/10">English</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage('cz')} className="hover:bg-primary/10">Čeština</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -130,7 +130,7 @@ const DashboardHeader = () => {
                 <span className="ml-2 sm:ml-3 text-primary">1€ : {exchangeRate.toFixed(2)}CZK</span>
               </div>
               <div className="text-xs text-muted-foreground">
-                Stand: <span className="text-foreground">{formatDateTime(rateUpdateTime)}</span>
+                {t('asOf')}: <span className="text-foreground">{formatDateTime(rateUpdateTime)}</span>
               </div>
             </div>
           </div>
