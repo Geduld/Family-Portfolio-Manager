@@ -69,22 +69,22 @@ const Login = () => {
           </h1>
         </div>
         
-        <form onSubmit={handleLogin} className="space-y-6">
-          <div className="space-y-2">
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div className="relative">
             <Input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="?"
-              className="h-48 text-center text-lg bg-card/50 backdrop-blur-sm border-border focus:border-primary transition-all duration-300"
+              className="h-16 text-center text-2xl bg-card/50 backdrop-blur-sm border-border/50 focus:border-primary transition-all duration-300 rounded-xl"
               autoFocus
             />
           </div>
           <Button
             type="submit"
-            className="w-full h-14 bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-lg transition-all duration-300 rounded-lg flex items-center justify-center"
+            className="w-20 h-16 bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 rounded-xl flex items-center justify-center mx-auto shadow-lg hover:shadow-xl hover:scale-105"
           >
-            <ArrowRight className="w-6 h-6" />
+            <ArrowRight className="w-7 h-7" />
           </Button>
         </form>
       </div>
