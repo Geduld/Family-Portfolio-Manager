@@ -86,14 +86,14 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
                   className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground focus-visible:ring-1 focus-visible:ring-primary"
                 />
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium text-right w-[140px]">
+              <TableHead className="text-muted-foreground font-medium text-right w-[140px] align-top pt-4">
                 <Input
                   value={headers.amountCZK}
                   onChange={(e) => handleHeaderChange('amountCZK', e.target.value)}
                   className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground text-right focus-visible:ring-1 focus-visible:ring-primary"
                 />
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium text-right w-[140px]">
+              <TableHead className="text-muted-foreground font-medium text-right w-[140px] align-top pt-4">
                 <Input
                   value={headers.amountEUR}
                   onChange={(e) => handleHeaderChange('amountEUR', e.target.value)}
@@ -107,7 +107,7 @@ const AssetsTable = ({ assets }: AssetsTableProps) => {
                   className="border-0 bg-transparent px-2 py-1 h-8 font-medium text-muted-foreground text-center focus-visible:ring-1 focus-visible:ring-primary"
                 />
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium text-right w-[140px]">
+              <TableHead className="text-muted-foreground font-medium text-right w-[140px] align-top pt-4">
                 <Input
                   value={headers.assetValue}
                   onChange={(e) => handleHeaderChange('assetValue', e.target.value)}
