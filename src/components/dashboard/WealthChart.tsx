@@ -3,7 +3,6 @@ import { Cell, Pie, PieChart, ResponsiveContainer, Sector } from 'recharts';
 import { Card } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { Asset } from '@/contexts/ProfileContext';
-import { ChevronDown } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -165,14 +164,13 @@ const WealthChart = ({ assets }: WealthChartProps) => {
           </ResponsiveContainer>
           
           <div className="absolute inset-0 flex items-center justify-center pointer-events-auto">
-            <div className="text-center">
+            <div className="text-center flex flex-col items-center">
               <div className="text-4xl font-light text-primary">
                 {formatNumber(displayValue)}
               </div>
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer">
+                <DropdownMenuTrigger className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer">
                   {currency}
-                  <ChevronDown className="h-3 w-3" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="center" className="bg-card border-border/50">
                   <DropdownMenuItem 
