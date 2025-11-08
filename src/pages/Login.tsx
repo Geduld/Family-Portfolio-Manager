@@ -1,14 +1,44 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { toast } from 'sonner';
+import { ArrowRight } from 'lucide-react';
 
 const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const [displayText, setDisplayText] = useState('');
+  const [wordIndex, setWordIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const words = ['Anmelden', 'Přihlásit', 'Login'];
+
+  useEffect(() => {
+    const currentWord = words[wordIndex];
+    const typingSpeed = isDeleting ? 30 : 100;
+    const pauseTime = 1500;
+
+    const timer = setTimeout(() => {
+      if (!isDeleting && charIndex < currentWord.length) {
+        setDisplayText(currentWord.substring(0, charIndex + 1));
+        setCharIndex(charIndex + 1);
+      } else if (isDeleting && charIndex > 0) {
+        setDisplayText(currentWord.substring(0, charIndex - 1));
+        setCharIndex(charIndex - 1);
+      } else if (!isDeleting && charIndex === currentWord.length) {
+        setTimeout(() => setIsDeleting(true), pauseTime);
+      } else if (isDeleting && charIndex === 0) {
+        setIsDeleting(false);
+        setWordIndex((wordIndex + 1) % words.length);
+      }
+    }, isDeleting ? typingSpeed : charIndex === currentWord.length ? pauseTime : typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [charIndex, isDeleting, wordIndex]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,12 +63,10 @@ const Login = () => {
       
       <div className="w-full max-w-md px-8 relative z-10">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-light text-foreground mb-3">
-            {t('login')}
+          <h1 className="text-4xl font-light text-foreground mb-3 font-mono">
+            {displayText}
+            <span className="animate-pulse">|</span>
           </h1>
-          <p className="text-muted-foreground text-lg">
-            Sophisticated wealth building, simplified
-          </p>
         </div>
         
         <form onSubmit={handleLogin} className="space-y-6">
@@ -47,16 +75,16 @@ const Login = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder={t('enterPassword')}
-              className="h-14 text-center text-lg bg-card/50 backdrop-blur-sm border-border focus:border-primary transition-all duration-300"
+              placeholder="?"
+              className="h-48 text-center text-lg bg-card/50 backdrop-blur-sm border-border focus:border-primary transition-all duration-300"
               autoFocus
             />
           </div>
           <Button
             type="submit"
-            className="w-full h-14 bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-lg transition-all duration-300 rounded-lg"
+            className="w-full h-14 bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-lg transition-all duration-300 rounded-lg flex items-center justify-center"
           >
-            {t('login')}
+            <ArrowRight className="w-6 h-6" />
           </Button>
         </form>
       </div>
