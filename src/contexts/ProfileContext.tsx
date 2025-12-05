@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 export interface Asset {
   name: string;
@@ -125,11 +125,40 @@ const defaultProfiles: Profile[] = [
   },
 ];
 
+const STORAGE_KEY = 'wealth-tracker-profiles';
+
+const loadFromStorage = (): Profile[] | null => {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : null;
+  } catch {
+    return null;
+  }
+};
+
+const saveToStorage = (profiles: Profile[]) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(profiles));
+  } catch {
+    // Storage full or unavailable
+  }
+};
+
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 
 export const ProfileProvider = ({ children }: { children: ReactNode }) => {
-  const [profiles, setProfiles] = useState<Profile[]>(defaultProfiles);
-  const [currentProfile, setCurrentProfile] = useState<Profile | null>(defaultProfiles[0]);
+  const [profiles, setProfiles] = useState<Profile[]>(() => {
+    return loadFromStorage() || defaultProfiles;
+  });
+  const [currentProfile, setCurrentProfile] = useState<Profile | null>(() => {
+    const saved = loadFromStorage();
+    return saved ? saved[0] : defaultProfiles[0];
+  });
+
+  // Save to localStorage whenever profiles change
+  useEffect(() => {
+    saveToStorage(profiles);
+  }, [profiles]);
 
   const addProfile = (profile: Profile) => {
     setProfiles([...profiles, profile]);
