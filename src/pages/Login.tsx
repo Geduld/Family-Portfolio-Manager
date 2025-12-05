@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { toast } from 'sonner';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Lock } from 'lucide-react';
 
 const Login = () => {
   const [password, setPassword] = useState('');
@@ -71,18 +71,19 @@ const Login = () => {
         
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="relative">
+            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground" />
             <Input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="?"
-              className="h-16 text-center text-2xl bg-card/50 backdrop-blur-sm border-border/50 focus:border-primary transition-all duration-300 rounded-xl"
+              placeholder="..."
+              className="h-16 pl-14 text-center text-2xl bg-card/50 backdrop-blur-sm border-border/50 focus:border-primary transition-all duration-300 rounded-xl"
               autoFocus
             />
           </div>
           <Button
             type="submit"
-            className="w-20 h-16 bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 rounded-xl flex items-center justify-center mx-auto shadow-lg hover:shadow-xl hover:scale-105"
+            className="w-full h-16 bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105"
           >
             <ArrowRight className="w-7 h-7" />
           </Button>
