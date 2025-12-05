@@ -43,7 +43,7 @@ const Login = () => {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     // Simple password check - in production, this would be handled by backend
-    const correctPassword = 'wealth2025'; // This should be environment variable in production
+    const correctPassword = 'Mari1234!'; // This should be environment variable in production
     
     if (password === correctPassword) {
       sessionStorage.setItem('authenticated', 'true');
