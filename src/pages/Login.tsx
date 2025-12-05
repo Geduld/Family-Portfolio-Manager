@@ -70,14 +70,16 @@ const Login = () => {
         </div>
         
         <form onSubmit={handleLogin} className="space-y-4">
-          <div className="relative">
-            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground" />
+          <div className="flex h-16 rounded-xl overflow-hidden border border-border/50 bg-card/50 backdrop-blur-sm">
+            <div className="flex items-center justify-center w-16 border-r border-border/50 bg-muted/30">
+              <Lock className="w-6 h-6 text-muted-foreground" />
+            </div>
             <Input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="..."
-              className="h-16 pl-14 text-center text-2xl bg-card/50 backdrop-blur-sm border-border/50 focus:border-primary transition-all duration-300 rounded-xl"
+              className="flex-1 h-full border-0 text-center text-2xl bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
               autoFocus
             />
           </div>
