@@ -79,7 +79,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="..."
-              className="flex-1 h-full border-0 text-center text-2xl bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="flex-1 h-full border-0 text-center text-2xl bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 pr-16"
               autoFocus
             />
           </div>
